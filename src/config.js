@@ -1,11 +1,9 @@
 import transenv from 'transenv'
 
 export default transenv()(({str, bool, num}) => {
-  const env = str('NODE_ENV', 'development')
-  const isDevelopment = env === 'development'
+  const isDevelopment = str('NODE_ENV') === 'development'
 
   return {
-    env,
     logLevel: str('log_level', isDevelopment ? 'debug' : 'error'),
     port: str('PORT'),
     payrollsChannel: str('payrolls_channel'),
