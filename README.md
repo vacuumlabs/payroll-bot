@@ -1,6 +1,6 @@
-# PayrollBot
+# VacuumBots
 
-Slack bot for company share holders.
+Multiple slack bots
 
 ## Deployment
 
@@ -11,3 +11,15 @@ Important parts regards to Heroku to note:
     - `engines.node` - which Node version to use
     - `scripts.build` - what to run in build phase
     - `scripts.start` - what to run in start phase
+
+## Bots
+
+Each bot is in its own folder.
+
+### CardHoldersBot
+
+Slack bot for sending reminders to company card holders.
+
+### PayrollBot
+
+Slack bot for company share holders.
