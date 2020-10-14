@@ -32,5 +32,5 @@ export async function init(app, urlPrefix) {
     [{constraints: {actionId: ACTION_ID.SEND_REPORTS}, handler: buttonHandler}]
   ))
 
-  app.get(`${urlPrefix}/remind`, remindHandler(services))
+  app.post(`${urlPrefix}/remind`, remindHandler(services))
 }

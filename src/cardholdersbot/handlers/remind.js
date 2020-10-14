@@ -11,16 +11,21 @@ export default function remind(services) {
             type: 'mrkdwn',
             text: '@channel it is time to send <https://docs.google.com/spreadsheets/d/${c./edit?usp=sharing|the reports>!',
           },
-          accessory: {
-            type: 'button',
-            text: {
-              type: 'plain_text',
-              text: 'Send reports',
+        },
+        {
+          type: 'actions',
+          elements: [
+            {
+              type: 'button',
+              text: {
+                type: 'plain_text',
+                text: 'Send reports',
+              },
+              style: 'primary',
+              value: 'send',
+              action_id: ACTION_ID.SEND_REPORTS,
             },
-            value: 'send',
-            style: 'primary',
-            action_id: ACTION_ID.SEND_REPORTS,
-          },
+          ],
         },
       ])
 
