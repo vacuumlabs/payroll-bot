@@ -6,7 +6,7 @@ import GSheets from '../common/GSheets'
 import {ACTION_ID} from './constants'
 import messageHandler from './handlers/message'
 import buttonHandler from './handlers/button'
-import remindHandler from './handlers/remind'
+import remindHandler, {remindForm} from './handlers/remind'
 
 export async function init(app, urlPrefix) {
   const services = {}
@@ -32,5 +32,6 @@ export async function init(app, urlPrefix) {
     [{constraints: {actionId: ACTION_ID.SEND_REPORTS}, handler: buttonHandler}]
   ))
 
+  app.get(`${urlPrefix}/remind`, remindForm)
   app.post(`${urlPrefix}/remind`, remindHandler(services))
 }

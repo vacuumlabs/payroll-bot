@@ -35,3 +35,13 @@ export default function remind(services) {
     }
   }
 }
+
+export function remindForm(req, res) {
+  res.send(`<html>
+<body>
+<form method="post">
+  <button type="submit">Send reminder</button>
+</form>
+</body>
+</html>`)
+}
