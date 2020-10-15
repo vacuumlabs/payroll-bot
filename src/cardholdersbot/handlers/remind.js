@@ -9,7 +9,7 @@ export default function remind(services) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: '@channel it is time to send <https://docs.google.com/spreadsheets/d/${c./edit?usp=sharing|the reports>!',
+            text: `@channel it is time to send <https://docs.google.com/spreadsheets/d/${c.spreadsheetId}/edit?usp=sharing|the reports>!`,
           },
         },
         {
