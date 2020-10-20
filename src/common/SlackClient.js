@@ -3,7 +3,7 @@ import {createMessageAdapter} from '@slack/interactive-messages'
 import {createEventAdapter} from '@slack/events-api'
 import logger from 'winston'
 
-import {callApi} from './slackUtils'
+import {callApi, getAll} from './slackUtils'
 import c from '../config'
 
 export default class SlackClient {
@@ -155,6 +155,12 @@ export default class SlackClient {
 
       throw err
     }
+  }
+
+  async getAllUsers() {
+    const users = await getAll((cursor) => this.web.users.list({cursor}), 'members')
+
+    return users.filter((user) => !user.deleted)
   }
 
   contactAdmin(text) {

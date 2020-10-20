@@ -11,7 +11,15 @@ export default async function sendReports(services, respond) {
   try {
     await respond('Sending reports...')
 
-    const data = await services.sheets.getValues(REPORTS_SHEET_RANGE)
+    const [data, users] = await Promise.all([
+      services.sheets.getValues(REPORTS_SHEET_RANGE),
+      services.slack.getAllUsers(),
+    ])
+
+    const usersLinksMap = users.reduce((acc, user) => {
+      acc[user.real_name] = `<@${user.id}>`
+      return acc
+    }, {})
 
     const sent = [], skipped = [], failed = []
 
@@ -26,7 +34,12 @@ export default async function sendReports(services, respond) {
           return
         }
 
-        await services.slack.writeDM(slackId, message)
+        const messageWithUsers = message.replace(
+          /@(\S+)/g,
+          (match, user) => usersLinksMap[user] || match,
+        )
+
+        await services.slack.writeDM(slackId, messageWithUsers)
 
         sent.push(userId)
       } catch (err) {
