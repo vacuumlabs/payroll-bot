@@ -17,10 +17,11 @@ export default async function sendReports(services, respond) {
     ])
 
     const usersLinksMap = users.reduce((acc, user) => {
-      acc[user.real_name] = `<@${user.id}>`
+      const name = user.profile.display_name.replace(/\s+/g, '-')
+      acc[name] = `<@${user.id}>`
       return acc
     }, {})
-console.log("usersLinksMap", usersLinksMap)
+
     const sent = [], skipped = [], failed = []
 
     await async.eachLimit(data, 5, async (item) => {
@@ -38,8 +39,8 @@ console.log("usersLinksMap", usersLinksMap)
           /@(\S+)/g,
           (match, user) => usersLinksMap[user] || match,
         )
-console.log("messageWithUsers", messageWithUsers)
-        // await services.slack.writeDM(slackId, messageWithUsers)
+
+        await services.slack.writeDM(slackId, messageWithUsers)
 
         sent.push(userId)
       } catch (err) {
