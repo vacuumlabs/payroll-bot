@@ -20,7 +20,7 @@ export default async function sendReports(services, respond) {
       acc[user.real_name] = `<@${user.id}>`
       return acc
     }, {})
-
+console.log("usersLinksMap", usersLinksMap)
     const sent = [], skipped = [], failed = []
 
     await async.eachLimit(data, 5, async (item) => {
@@ -38,8 +38,8 @@ export default async function sendReports(services, respond) {
           /@(\S+)/g,
           (match, user) => usersLinksMap[user] || match,
         )
-
-        await services.slack.writeDM(slackId, messageWithUsers)
+console.log("messageWithUsers", messageWithUsers)
+        // await services.slack.writeDM(slackId, messageWithUsers)
 
         sent.push(userId)
       } catch (err) {
